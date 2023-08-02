@@ -7,4 +7,5 @@ This is a list of the Python packages you need.
   <li>Cloudscraper</li>
   <li>Beautiful Soup</li>
   <li>lxml</li>
+  <li>Pandas</li>
 </ul>
