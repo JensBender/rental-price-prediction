@@ -1,7 +1,6 @@
 import cloudscraper
-import pandas as pd
 from bs4 import BeautifulSoup
-import pandas
+import pandas as pd
 
 # Create a CloudScraper object
 scraper = cloudscraper.create_scraper()
