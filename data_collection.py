@@ -5,47 +5,32 @@ import pandas as pd
 # Create a CloudScraper object
 scraper = cloudscraper.create_scraper()
 
-# URL of PropertyGuru search in Singapore
+# URL of PropertyGuru rental property search for Singapore
 search_url = "https://www.propertyguru.com.sg/property-for-rent"
 
-# Make a property search request for residential rental properties using the scraper
-response = scraper.get(search_url + "?market=residential")
-
-# Parse the search results using Beautiful Soup
-soup = BeautifulSoup(response.content, "lxml")
-
-# Get number of properties
-# Get HTML tag that contains the number of rental properties (identified by a span tag with a specific class)
-n_properties_tag = soup.find("span", {"class": "shorten-search-summary-title"})
-# Get number of properties (also remove thousands separator and convert to int)
-n_properties = int(n_properties_tag.get_text(strip=True).split(" ")[0].replace(",", ""))
-print("Number of properties: ", n_properties)
-
-# Get number of pages with search results
-# Get HTML tag that contains the number of results pages (identified by an unordered list tag with a specific class)
-n_pages_tag = soup.find("ul", {"class": "pagination"})
-# Get number of pages
-n_pages = int(n_pages_tag.get_text().split("...")[1].split("»")[0])
-print("Number of pages with search results: ", n_pages)
-
-# List of properties
+# Create list to store property information
 property_list = []
 
-# Counter for the number of scraped properties
+# Create counter for the number of scraped properties
 n_scraped = 0
 
-# Iterate all pages
-for page in range(1, 6):  # n_pages + 1
+# Loop through the search results pages
+for page in range(1, 20):  # range(1, n_pages + 1):
     # Make a search request
     response = scraper.get(search_url + f"/{page}")
+
     # Parse the search results
     soup = BeautifulSoup(response.content, "lxml")
 
-    # Get list of property cards that contain property information (identified by div tags with a specific class)
-    property_card_tags = soup.find_all("div", {"class": "listing-card"})
+    # Detect captcha
+    if "captcha" in soup.text:
+        print("Captcha detected when trying to scrape " + search_url + f"/{page}")
 
-    # Iterate all property cards
-    for property_card in property_card_tags:
+    # Get list of property cards that contain property information (identified by div tags with a specific class)
+    property_card_list = soup.find_all("div", {"class": "listing-card"})
+
+    # Loop through the property cards
+    for property_card in property_card_list:
         # Get property name (identified by an HTML anchor tag with a specific class and item property)
         name = property_card.find("a", {"class": "nav-link", "itemprop": "url"}).get_text()
 
@@ -58,50 +43,65 @@ for page in range(1, 6):  # n_pages + 1
         # Get property size (identified by an HTML list tag with a specific class)
         size = property_card.find("li", {"class": "listing-floorarea"}).get_text()
 
-        # Get bedrooms and bathrooms (identified by an HTML list tag with a specific class)
+        # Get bedrooms and bathrooms
+        # Get HTML tag that contains the information about the bedrooms and bathrooms
         rooms_tag = property_card.find("li", {"class": "listing-rooms"})
+        # If the HTML tag is missing, set bedrooms and bathrooms as missing values
         if rooms_tag is None:
             bedrooms = ""
             bathrooms = ""
+        # If the property is identified as a room in a shared flat, assign bedrooms as "Room" and bathrooms as missing
         elif "Room" in rooms_tag.get_text():
             bedrooms = "Room"
             bathrooms = ""
+        # If the property is identified as a studio, assign bedrooms as "Studio" and bathrooms as missing
         elif "Studio" in rooms_tag.get_text():
             bedrooms = "Studio"
             bathrooms = ""
+        # If the property is not a room or a studio, extract the bedrooms and bathrooms information
         else:
-            bedrooms = rooms_tag.find(class_="bed").get_text(strip=True)
-            bathrooms = rooms_tag.find(class_="bath").get_text(strip=True)
+            bedrooms = rooms_tag.find(class_="bed").get_text(strip=True) if rooms_tag.find(class_="bed") is not None else ""
+            bathrooms = rooms_tag.find(class_="bath").get_text(strip=True) if rooms_tag.find(class_="bath") is not None else ""
 
         # Get property type, furnishing, and build year (identified by an HTML unordered list tag with a specific class)
         property_type_furnishing_year = soup.find("ul", {"class": "listing-property-type"}).get_text()
 
         # Get distance to MRT (identified by an HTML unordered list tag with a specific data-automation-id)
         mrt_distance_tag = property_card.find("ul", {"data-automation-id": "listing-features-walk"})
+        # If the HTML tag is missing, assign a missing value
         if mrt_distance_tag is None:
             mrt_distance = ""
+        # If the HTML tag is present, extract the MRT distance information
         else:
             mrt_distance = mrt_distance_tag.get_text(strip=True)
 
         # Get property agent description (identified by an HTML div tag with a specific class)
         agent_description = property_card.find("div", {"class": "featured-description"}).get_text().split('"')[1]
 
-        # Add property to the list
+        # Add property to the property list
         property_list.append([name, address, price, size, bedrooms, bathrooms, property_type_furnishing_year,
                               mrt_distance, agent_description])
 
     # Update the number of scraped properties
-    n_scraped += len(property_card_tags)
+    n_scraped += len(property_card_list)
     # Show number of scraped properties
     print(f"Number of scraped properties: {n_scraped}")
 
-# Show list of properties
+# Show first 10 elements of the list of properties
 print(property_list[:10])
+
+# Show total number of properties
 print(len(property_list))
 
 # Convert list of properties to pandas dataframe
-df = pd.DataFrame(property_list, columns=["name", "address", "price", "size", "bedrooms", "bathrooms",
-                                          "property_type_furnishing_year", "mrt_distance", "agent_description"])
+new_data = pd.DataFrame(property_list, columns=["name", "address", "price", "size", "bedrooms", "bathrooms",
+                                                "property_type_furnishing_year", "mrt_distance", "agent_description"])
 
-# Save dataframe to csv
+# Read the existing csv
+df = pd.read_csv("data/rental_prices_singapore.csv")
+
+# Append the new data to the existing dataframe
+df = pd.concat([df, new_data], ignore_index=True)
+
+# Save dataframe as csv
 df.to_csv("data/rental_prices_singapore.csv", index=False)
