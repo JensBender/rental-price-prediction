@@ -1,3 +1,4 @@
+.env
 /data
 /venv_development
 /.idea
