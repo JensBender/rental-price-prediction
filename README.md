@@ -15,10 +15,13 @@
     <a href="#motivation">Motivation</a>
   </li>
   <li>
-    <a href="#data">Data</a>
+    <a href="#data-collection">Data Collection</a>
   </li>
   <li>
-    <a href="#model-building">Model Building</a>
+    <a href="#exploraty-data-analysis">Exploratory Data Analysis</a>
+  </li>
+  <li>
+    <a href="#data-preprocessing">Data Preprocessing</a>
   </li>
   <li>
     <a href="#getting-started">Getting Started</a>
@@ -83,6 +86,18 @@
 
 + Explored descriptive statistics, distributions and correlations. 
 ![Correlation heatmap](images/correlation_heatmap.png)
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- DATA PREPROCESSING -->
+## Data Preprocessing
++ Data enrichment: Utilized the Google Maps API to fill in missing addresses based on property names.
++ Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
++ Feature extraction: Extracted property type, furnishing, built year, distance to MRT and other features from the property descriptions.
++ Handling outliers: Compared three ways of handling outliers in rental prices: (a) Removing outliers based on 1.5 interquartile ranges (IQR), (b) removing outliers based on 3 standard deviations (SD), and (c) not removing outliers. Removing outliers based on 1.5 IQR yielded the best performance on the validation data.
++ Removed duplicates and handled missing values.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
