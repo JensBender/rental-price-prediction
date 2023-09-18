@@ -57,10 +57,19 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- Motivation -->
+<!-- MOTIVATION -->
 ## Motivation
 + Problem: The property market in Singapore is one of the most expensive in the world. Finding a good deal is hard and determining whether a property listing is a good deal or overpriced is difficult.
 + Project goal: Utilize the power of machine learning to help people in their search of rental properties by developing a tool that estimates rental prices and helps to determine whether a property listing is overpriced or a good deal. 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- DATA COLLECTION -->
+## Data Collection
++ Scraped 5360 property listings (1680 after removing duplicates) from an online property portal in Singapore using cloudscraper and Beautiful Soup.
++ Extracted the following information from the property listings: Property name, price, address, size, bedrooms, bathrooms, property type, furnishing, build year, distance to MRT, and agent description.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
