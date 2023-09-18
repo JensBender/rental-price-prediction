@@ -74,6 +74,20 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+<!-- EXPLORATY DATA ANALYSIS -->
+## Exploratory Data Analysis
++ Utilized a word cloud to visualize the frequencies of words used by property agents in comments, thus informing which features to extract from agent comments. 
+![Word cloud](images/wordcloud.png)
++ Visualized property locations on an interactive map of Singapore using Python's Folium library. 
+<iframe src="images/map.html" width="100%" height="400"></iframe>
+
++ Explored descriptive statistics, distributions and correlations. 
+![Correlation heatmap](images/correlation_heatmap.png)
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
