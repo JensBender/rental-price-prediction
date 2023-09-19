@@ -126,7 +126,7 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
-### Prerequisites for Data Collection and Preprocessing
+### Prerequisites
 This is a list of the Python packages you need.  
 + Data collection
   + Cloudscraper
@@ -140,9 +140,6 @@ This is a list of the Python packages you need.
   + Seaborn
   + Requests
   + Dotenv
-
-### Prerequisites for Model Training
-This is a list of the Python packages you need.  
 + Model training
   + Numpy
   + Pandas
