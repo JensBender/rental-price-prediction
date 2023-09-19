@@ -112,7 +112,15 @@
 ## Model Training
 
 ### Baseline model performance 
-+ XGBoost (RMSE: 1151) and random forest (RMSE: 1110) demonstrated superior performance compared to linear regression (RMSE: 1369), support vector machine (RMSE: 2087), and neural network (RMSE: 1370).
+Random forest and XGBoost demonstrated superior performance compared to linear regression, support vector machine, and neural network in their baseline parameter configurations.
+
+| Model                  | RMSE  | MAPE | R-squared (R²) |
+|------------------------|-------|------|----------------|
+| Linear Regression      | 1369  | 0.21 | 0.83           |
+| Support Vector Machine | 2087  | 0.33 | 0.60           |
+| Neural Network         | 1370  | 0.19 | 0.83           |
+| Random Forest          | 1110  | 0.15 | 0.89           |
+| XGBoost                | 1151  | 0.15 | 0.88           |
 
 ### Hyperparameter tuning
 + Performed a grid search of XGBoost and random forest. 
