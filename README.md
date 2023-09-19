@@ -39,8 +39,8 @@
 ### Summary
 + Motivation: Utilize machine learning to predict rental prices. 
 + Data collection: Scraped 1680 property listings from an online property portal in Singapore.
-+ Exploratory data analysis: Utilized a word cloud to inform feature extraction from property agent comments. Visualized property locations on an interactive map of Singapore using Python's Folium library. Explored descriptive statistics, distributions and correlations. 
-+ Data preprocessing: Removed duplicates and handled missing values.
++ Exploratory data analysis: Visualized property locations on an interactive map of Singapore using Python's Folium library. Utilized a word cloud to inform feature extraction from property agent comments.  
++ Data preprocessing: 
   + Data enrichment: Filled in missing addresses based on property names using the Google Maps API.
   + Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
   + Feature extraction: Extracted property type, furnishing, built year, distance to MRT and other features from the property descriptions.
@@ -71,7 +71,7 @@
 <!-- DATA COLLECTION -->
 ## Data Collection
 + Scraped 5360 property listings (1680 after removing duplicates) from an online property portal in Singapore using cloudscraper and Beautiful Soup.
-+ Extracted the following information from the property listings: Property name, price, address, size, bedrooms, bathrooms, property type, furnishing, build year, distance to MRT, and agent description.
++ Extracted the property name, price, address, size, bedrooms, bathrooms, property type, furnishing, build year, distance to MRT, and agent description from the property listings.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -79,7 +79,7 @@
 
 <!-- EXPLORATY DATA ANALYSIS -->
 ## Exploratory Data Analysis
-+ Utilized a word cloud to visualize the frequencies of words used by property agents in comments, thus informing which features to extract from agent comments. 
++ Utilized a word cloud to visualize the word frequencies in property agent comments, thus informing which features to extract. 
 ![Word cloud](images/wordcloud.png)
 + Visualized property locations on an interactive map of Singapore using Python's Folium library. 
 <iframe src="images/map.html" width="100%" height="400"></iframe>
@@ -95,7 +95,7 @@
 ## Data Preprocessing
 + Data enrichment: Utilized the Google Maps API to fill in missing addresses based on property names.
 + Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
-+ Feature extraction: Extracted property type, furnishing, built year, distance to MRT and other features from the property descriptions.
++ Feature extraction: Extracted property type, furnishing, built year, distance to MRT, high floor, new unit, renovated, view, and penthouse from the property descriptions.
 + Handling outliers: Compared three ways of handling outliers in rental prices: (a) Removing outliers based on 1.5 interquartile ranges (IQR), (b) removing outliers based on 3 standard deviations (SD), and (c) not removing outliers. Removing outliers based on 1.5 IQR yielded the best performance on the validation data.
 + Removed duplicates and handled missing values.
 
