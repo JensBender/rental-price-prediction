@@ -24,6 +24,14 @@
     <a href="#data-preprocessing">Data Preprocessing</a>
   </li>
   <li>
+    <a href="#model-training">Model Training</a>
+    <ul>
+      <li><a href="#baseline-model-performance">Baseline Model Performance</a></li>
+      <li><a href="#hyperparameter-tuning">Hyperparameter Tuning</a></li>
+      <li><a href="#model-selection">Model Selection</a></li>
+    </ul>
+  </li>
+  <li>
     <a href="#getting-started">Getting Started</a>
     <ul>
       <li><a href="#prerequisites-for-data-collection-and-preprocessing">Prerequisites for Data Collection and Preprocessing</a></li>
@@ -73,20 +81,18 @@
 + Scraped 5360 property listings (1680 after removing duplicates) from an online property portal in Singapore using cloudscraper and Beautiful Soup.
 + Extracted the property name, price, address, size, bedrooms, bathrooms, property type, furnishing, build year, distance to MRT, and agent description from the property listings.
 
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- EXPLORATY DATA ANALYSIS -->
 ## Exploratory Data Analysis
-+ Utilized a word cloud to visualize the word frequencies in property agent comments, thus informing which features to extract. 
-![Word cloud](images/wordcloud.png)
 + Visualized property locations on an interactive map of Singapore using Python's Folium library. 
 <iframe src="images/map.html" width="100%" height="400"></iframe>
 
++ Utilized a word cloud to visualize the word frequencies in property agent comments, thus informing which features to extract. 
+![Word cloud](images/wordcloud.png)
 + Explored descriptive statistics, distributions and correlations. 
 ![Correlation heatmap](images/correlation_heatmap.png)
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -99,6 +105,20 @@
 + Handling outliers: Compared three ways of handling outliers in rental prices: (a) Removing outliers based on 1.5 interquartile ranges (IQR), (b) removing outliers based on 3 standard deviations (SD), and (c) not removing outliers. Removing outliers based on 1.5 IQR yielded the best performance on the validation data.
 + Removed duplicates and handled missing values.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- MODEL TRAINING -->
+## Model Training
+
+### Baseline model performance 
++ XGBoost (RMSE: 1151) and random forest (RMSE: 1110) demonstrated superior performance compared to linear regression (RMSE: 1369), support vector machine (RMSE: 2087), and neural network (RMSE: 1370).
+
+### Hyperparameter tuning
++ Performed a grid search of XGBoost and random forest. 
+
+### Model selection
++ The best performing model was an XGBoost model with RMSE 995, MAPE 0.13 and R-squared 0.9 on the test data.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -130,6 +150,8 @@ This is a list of the Python packages you need.
   + Scikit-learn
   + XGBoost
   + Pickle
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS -->
