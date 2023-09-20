@@ -28,6 +28,7 @@
     <ul>
       <li><a href="#baseline-model-performance">Baseline Model Performance</a></li>
       <li><a href="#hyperparameter-tuning-and-model-selection">Hyperparameter Tuning and Model Selection</a></li>
+      <li><a href="#feature-importance">Feature Importance</a></li>
     </ul>
   </li>
   <li>
@@ -148,6 +149,12 @@ XGBoost Model Performance
 | Training                  | 279   | 0.05 | 0.99 |
 | Validation                | 1040  | 0.14 | 0.90 |
 | Test                      | 995   | 0.13 | 0.90 |
+
+XGBoost Residual Plots for Test Data
+![Residual plots](images/residual_plots.png)
+
+### Feature Importance
+![Feature importance](images/feature_importance.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
