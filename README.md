@@ -27,15 +27,20 @@
     <a href="#model-training">Model Training</a>
     <ul>
       <li><a href="#baseline-model-performance">Baseline Model Performance</a></li>
-      <li><a href="#hyperparameter-tuning">Hyperparameter Tuning</a></li>
-      <li><a href="#model-selection">Model Selection</a></li>
+      <li><a href="#hyperparameter-tuning-and-model-selection">Hyperparameter Tuning and Model Selection</a></li>
     </ul>
   </li>
   <li>
     <a href="#getting-started">Getting Started</a>
     <ul>
-      <li><a href="#prerequisites-for-data-collection-and-preprocessing">Prerequisites for Data Collection and Preprocessing</a></li>
-      <li><a href="#prerequisites-for-model-training">Prerequisites for Model Training</a></li>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="#appendix">Appendix</a>
+    <ul>
+      <li><a href="#random-forest-hyperparameter-tuning">Random Forest: Hyperparameter Tuning</a></li>
+      <li><a href="#xgboost-hyperparameter-tuning">XGBoost: Hyperparameter Tuning</a></li>
     </ul>
   </li>
 </ol>
@@ -102,7 +107,7 @@
 + Data enrichment: Utilized the Google Maps API to fill in missing addresses based on property names.
 + Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
 + Feature extraction: Extracted property type, furnishing, built year, distance to MRT, high floor, new unit, renovated, view, and penthouse from the property descriptions.
-+ Handling outliers: Compared three ways of handling outliers in rental prices: (a) Removing outliers based on 1.5 interquartile ranges (IQR), (b) removing outliers based on 3 standard deviations (SD), and (c) not removing outliers. Removing outliers based on 1.5 IQR yielded the best performance on the validation data.
++ Handling outliers: Compared three ways of handling outliers in rental prices: (a) Removing outliers based on 1.5 interquartile ranges (IQR), (b) removing outliers based on 3 standard deviations (SD), and (c) not removing outliers. Removing outliers based on 1.5 IQR yielded the best performance on the validation data and was used for all subsequent models.
 + Removed duplicates and handled missing values.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -111,10 +116,12 @@
 <!-- MODEL TRAINING -->
 ## Model Training
 
-### Baseline model performance 
-Random forest and XGBoost demonstrated superior performance compared to linear regression, support vector machine, and neural network in their baseline parameter configurations.
+### Baseline Model Performance 
++ Implemented linear regression, support vector machine regression, neural network regression, random forest regression, and XGBoost regression models with baseline parameter configurations. 
++ Evaluated model performance based on root mean squared error (RMSE), mean absolute percentage error (MAPE), and R-squared (R²).
++ Identified random forest and XGBoost as the top two performers for hyperparameter tuning.
 
-| Model                  | RMSE  | MAPE | R-squared (R²) |
+| Model                  | RMSE  | MAPE | R²             |
 |------------------------|-------|------|----------------|
 | Linear Regression      | 1369  | 0.21 | 0.83           |
 | Support Vector Machine | 2087  | 0.33 | 0.60           |
@@ -122,11 +129,25 @@ Random forest and XGBoost demonstrated superior performance compared to linear r
 | Random Forest          | 1110  | 0.15 | 0.89           |
 | XGBoost                | 1151  | 0.15 | 0.88           |
 
-### Hyperparameter tuning
-+ Performed a grid search of XGBoost and random forest. 
+### Hyperparameter Tuning and Model Selection
++ Employed grid search with 5-fold cross-validation to find the best hyperparameter combinations for the random forest and XGBoost models.
+  + Random forest: [See details](#random-forest-hyperparameter-tuning)
+  + XGBoost: [See details](#xgboost-hyperparameter-tuning)
++ The XGBoost model with the following hyperparameter achieved the best performance on the validation data: n_estimators=300, max_depth=4, subsample=0.8, colsample_bytree=0.8, learning_rate=0.1, and a min_child_weight=3, gamma=0.
++ Hyperparameter tuning of the XGBoost model improved RMSE by 111 points, MAPE by 1% and R² by 2%. 
 
-### Model selection
-+ The best performing model was an XGBoost model with RMSE 995, MAPE 0.13 and R-squared 0.9 on the test data.
+| Model                         | RMSE  | MAPE | R²   |
+|-------------------------------|-------|------|------|
+| XGBoost Baseline Model        | 1151  | 0.15 | 0.88 |
+| XGBoost Hyperparameter Tuning | 1040  | 0.14 | 0.90 |
+
+
+XGBoost Model Performance
+| Data                      | RMSE  | MAPE | R²   |
+|---------------------------|-------|------|------|
+| Training                  | 279   | 0.05 | 0.99 |
+| Validation                | 1040  | 0.14 | 0.90 |
+| Test                      | 995   | 0.13 | 0.90 |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -155,6 +176,29 @@ This is a list of the Python packages you need.
   + Scikit-learn
   + XGBoost
   + Pickle
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- APPENDIX -->
+## Appendix
+### Random Forest: Hyperparameter Tuning
+| Hyperparameter | Explanation  | Values |
+|----------------|--------------|--------|
+| n_estimators   | Number of decision trees in the forest                | [200, 300, 400, 500] |
+| max_depth      | Maximum depth of each decision tree            | [20, 30, 40, 50] 
+| max_features   | Maximum number of features considered when splitting a node | [0.33, 0.5, 0.66, 1] |
+
+### XGBoost: Hyperparameter Tuning
+| Hyperparameter   | Explanation                                    | Values                   |
+|------------------|------------------------------------------------|--------------------------| 
+| n_estimators     | Number of boosting rounds                      | [100, 200, 300, 400, 500] |
+| max_depth        | Maximum depth of each tree                     | [3, 4, 5] 
+| subsample        | Fraction of samples used for fitting each tree | [0.8, 0.9, 1.0] |
+| colsample_bytree | Fraction of features used for fitting each tree| [0.8, 0.9, 1.0] |
+| learning_rate    | Rate at which the model adapts during training             | [0.01, 0.1] |
+| min_child_weight | Minimum sum of instance weight (hessian) needed in a child | [1, 2, 3] |
+| gamma            | Minimum loss reduction required when splitting a node      | [0, 0.1, 0.2] |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
