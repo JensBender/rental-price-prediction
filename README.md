@@ -75,8 +75,9 @@
 
 <!-- MOTIVATION -->
 ## Motivation
-+ Problem: The property market in Singapore is one of the most expensive in the world. Finding a good deal is hard and determining whether a property listing is a good deal or overpriced is difficult.
-+ Project goal: Utilize the power of machine learning to help people in their search of rental properties by developing a tool that estimates rental prices and helps to determine whether a property listing is overpriced or a good deal. 
++ Problem: The real estate market in Singapore stands as one of the most expensive in the world. Navigating through this challenging landscape to find a lucrative rental property deal can be a daunting task. Determining whether a property listing represents a fair deal or is excessively priced poses a considerable challenge to prospective renters.
++ Project goal: Simplify the property search process for individuals seeking rental properties in Singapore. Harness the power of machine learning to create a tool that estimates rental prices and assists in making informed decisions about property listings. By doing so, empower users with the ability to identify whether a listed property is a genuine opportunity or an overpriced investment.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
