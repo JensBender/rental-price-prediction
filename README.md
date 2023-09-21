@@ -28,7 +28,6 @@
     <ul>
       <li><a href="#baseline-model-performance">Baseline Model Performance</a></li>
       <li><a href="#hyperparameter-tuning-and-model-selection">Hyperparameter Tuning and Model Selection</a></li>
-      <li><a href="#feature-importance">Feature Importance</a></li>
     </ul>
   </li>
   <li>
@@ -84,8 +83,8 @@
 
 <!-- DATA COLLECTION -->
 ## Data Collection
-+ Scraped 5360 property listings (1680 after removing duplicates) from an online property portal in Singapore using cloudscraper and Beautiful Soup.
-+ Extracted the property name, price, address, size, bedrooms, bathrooms, property type, furnishing, build year, distance to MRT, and agent description from the property listings.
++ Scraped 1680 property listings from an online property portal in Singapore using cloudscraper and Beautiful Soup.
++ Collected information on property name, price, address, size, bedrooms, bathrooms, property type, furnishing, build year, distance to MRT, and agent description.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -95,7 +94,7 @@
 + Visualized property locations on an interactive map of Singapore using Python's Folium library. 
 <iframe src="images/map.html" width="100%" height="400"></iframe>
 
-+ Utilized a word cloud to visualize the word frequencies in property agent comments, thus informing which features to extract. 
++ Utilized a word cloud to visualize word frequencies in property agent comments, thus informing feature extraction. 
 ![Word cloud](images/wordcloud.png)
 + Explored descriptive statistics, distributions and correlations. 
 ![Correlation heatmap](images/correlation_heatmap.png)
@@ -109,7 +108,6 @@
 + Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
 + Feature extraction: Extracted property type, furnishing, built year, distance to MRT, high floor, new unit, renovated, view, and penthouse from the property descriptions.
 + Handling outliers: Compared three ways of handling outliers in rental prices: (a) Removing outliers based on 1.5 interquartile ranges (IQR), (b) removing outliers based on 3 standard deviations (SD), and (c) not removing outliers. Removing outliers based on 1.5 IQR yielded the best performance on the validation data and was used for all subsequent models.
-+ Removed duplicates and handled missing values.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -120,7 +118,6 @@
 ### Baseline Model Performance 
 + Implemented linear regression, support vector machine regression, neural network regression, random forest regression, and XGBoost regression models with baseline parameter configurations. 
 + Evaluated model performance based on root mean squared error (RMSE), mean absolute percentage error (MAPE), and R-squared (R²).
-+ Identified random forest and XGBoost as the top two performers for hyperparameter tuning.
 
 | Model                  | RMSE  | MAPE | R²             |
 |------------------------|-------|------|----------------|
@@ -131,17 +128,12 @@
 | XGBoost                | 1151  | 0.15 | 0.88           |
 
 ### Hyperparameter Tuning and Model Selection
-+ Employed grid search with 5-fold cross-validation to find the best hyperparameter combinations for the random forest and XGBoost models.
++ Identified random forest and XGBoost as the top two performers for hyperparameter tuning.
++ Employed grid search with 5-fold cross-validation to find the best hyperparameter combinations.
   + Random forest: [See details](#random-forest-hyperparameter-tuning)
   + XGBoost: [See details](#xgboost-hyperparameter-tuning)
-+ The XGBoost model with the following hyperparameter achieved the best performance on the validation data: n_estimators=300, max_depth=4, subsample=0.8, colsample_bytree=0.8, learning_rate=0.1, and a min_child_weight=3, gamma=0.
-+ Hyperparameter tuning of the XGBoost model improved RMSE by 111 points, MAPE by 1% and R² by 2%. 
-
-| Model                         | RMSE  | MAPE | R²   |
-|-------------------------------|-------|------|------|
-| XGBoost Baseline Model        | 1151  | 0.15 | 0.88 |
-| XGBoost Hyperparameter Tuning | 1040  | 0.14 | 0.90 |
-
++ Selected the model with the best performance, which was an XGBoost model with the following hyperparameters: n_estimators=300, max_depth=4, subsample=0.8, colsample_bytree=0.8, learning_rate=0.1, and a min_child_weight=3, gamma=0.
++ Hyperparameter tuning improved the XGBoost model compared to the baseline configuration: RMSE: 1040 vs. 1151, MAPE 0.14 vs. 0.15, and R-squared 0.90 vs. 0.88. 
 
 XGBoost Model Performance
 | Data                      | RMSE  | MAPE | R²   |
@@ -153,7 +145,7 @@ XGBoost Model Performance
 XGBoost Residual Plots for Test Data
 ![Residual plots](images/residual_plots.png)
 
-### Feature Importance
+XGBoost Feature Importance Plot 
 ![Feature importance](images/feature_importance.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
