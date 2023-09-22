@@ -96,9 +96,8 @@
 
 <!-- EXPLORATY DATA ANALYSIS -->
 ## Exploratory Data Analysis
-+ Visualized property locations on an interactive map of Singapore using Python's Folium library. 
-<iframe src="https://github.com/JensBender/rental-price-prediction/blob/main/images/map.html" width="100%" height="400"></iframe>
-
++ Visualized property locations on an [interactive map of Singapore](https://jensbender.github.io/rental-price-prediction/map.html) using Python's Folium library. 
+<img src="images/map.png" alt="Property map" width="80%">
 + Utilized a word cloud to visualize word frequencies in property agent descriptions, thus informing feature extraction.
 <img src="images/wordcloud.png" alt="Word cloud" width="80%">
 + Explored descriptive statistics, distributions and correlations. 
