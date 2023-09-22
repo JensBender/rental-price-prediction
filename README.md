@@ -31,7 +31,7 @@
     <a href="#data-collection">Data Collection</a>
   </li>
   <li>
-    <a href="#exploraty-data-analysis">Exploratory Data Analysis</a>
+    <a href="#exploratory-data-analysis">Exploratory Data Analysis</a>
   </li>
   <li>
     <a href="#data-preprocessing">Data Preprocessing</a>
@@ -62,11 +62,11 @@
 
 <!-- SUMMARY -->
 ## Summary
-+ Motivation: Simplify the process of finding rental properties in Singapore's expensive real estate market by using machine learning to estimate rental prices. 
-+ Data collection: Scraped 1680 property listings from an online property portal, including information on price, size, address, bedrooms, bathrooms and more.
-+ Exploratory data analysis: Visualized property locations on an interactive map, generated a word cloud to extract insights from property agent descriptions, and examined descriptive statistics, distributions, and correlations.  
-+ Data preprocessing: Handled missing address data and engineered location-related features using the Google Maps API, extracted property features from agent descriptions and systematically evaluated multiple outlier handling methods. 
-+ Model training: Trained five machine learning models with baseline configurations, selected an XGBoost regression model with optimized hyperparameters, and achieved a test dataset performance with an RMSE of 995, a MAPE of 0.13, and an R² of 0.90.
++ **Motivation**: Simplify the process of finding rental properties in Singapore's expensive real estate market by using machine learning to estimate rental prices. 
++ **Data collection**: Scraped 1680 property listings from an online property portal, including information on price, size, address, bedrooms, bathrooms and more.
++ **Exploratory data analysis**: Visualized property locations on an interactive map, generated a word cloud to extract insights from property agent descriptions, and examined descriptive statistics, distributions, and correlations.  
++ **Data preprocessing**: Handled missing address data and engineered location-related features using the Google Maps API, extracted property features from agent descriptions and systematically evaluated multiple outlier handling methods. 
++ **Model training**: Trained five machine learning models with baseline configurations, selected an XGBoost regression model with optimized hyperparameters, and achieved a test dataset performance with an RMSE of 995, a MAPE of 0.13, and an R² of 0.90.
 
 ### Built With
 * [![Python][Python-badge]][Python-url]
@@ -80,8 +80,8 @@
 
 <!-- MOTIVATION -->
 ## Motivation
-+ Problem: The rental property market in Singapore stands as one of the most expensive in the world. Navigating through this challenging landscape to find a lucrative deal can be a daunting task. Determining whether a property listing represents a fair deal or is excessively priced poses a considerable challenge to prospective renters.
-+ Project goal: Simplify rental property search in Singapore, using machine learning to estimate rental prices and empower users to make informed decisions about listed properties being genuine opportunities or overpriced investments.
++ **Problem**: The rental property market in Singapore stands as one of the most expensive in the world. Navigating through this challenging landscape to find a lucrative deal can be a daunting task. Determining whether a property listing represents a fair deal or is excessively priced poses a considerable challenge to prospective renters.
++ **Project goal**: Simplify rental property search in Singapore, using machine learning to estimate rental prices and empower users to make informed decisions about listed properties being genuine opportunities or overpriced investments.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,10 +109,10 @@
 
 <!-- DATA PREPROCESSING -->
 ## Data Preprocessing
-+ Data enrichment: Leveraged the Google Maps API to fill in missing addresses based on property names.
-+ Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
-+ Feature extraction: Extracted property features (e.g., high floor, new, renovated) from property agent descriptions.
-+ Handling outliers: Compared three methods for dealing with outliers and found that removing outliers based on 1.5 times the interquartile range consistently outperformed both removing outliers based on 3 standard deviations and not removing outliers.
++ **Data enrichment**: Leveraged the Google Maps API to fill in missing addresses based on property names.
++ **Feature engineering**: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
++ **Feature extraction**: Extracted property features (e.g., high floor, new, renovated) from property agent descriptions.
++ **Handling outliers**: Compared three methods for dealing with outliers and found that removing outliers based on 1.5 times the interquartile range consistently outperformed both removing outliers based on 3 standard deviations and not removing outliers.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
