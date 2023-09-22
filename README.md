@@ -19,9 +19,8 @@
 ## Table of Contents
 <ol>
   <li>
-    <a href="#about-the-project">About The Project</a>
+    <a href="#summary">Summary</a>
     <ul>
-      <li><a href="#summary">Summary</a></li>
       <li><a href="#built-with">Built With</a></li>
     </ul>
   </li>
@@ -61,10 +60,8 @@
 </ol>
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-### Summary
+<!-- SUMMARY -->
+## Summary
 + Motivation: Simplify the process of finding rental properties in Singapore's expensive real estate market by using machine learning to estimate rental prices. 
 + Data collection: Scraped 1680 property listings from an online property portal, including information on price, size, address, bedrooms, bathrooms and more.
 + Exploratory data analysis: Visualized property locations on an interactive map, generated a word cloud to extract insights from property agent descriptions, and examined descriptive statistics, distributions, and correlations.  
