@@ -99,7 +99,7 @@
 <!-- DATA COLLECTION -->
 ## Data Collection
 + Scraped 1680 property listings from an online property portal in Singapore using cloudscraper and Beautiful Soup.
-+ Collected information on property name, price, address, size, bedrooms, bathrooms, property type, furnishing, build year, distance to MRT, and agent description.
++ Collected information on property name, price, address, size, bedrooms, bathrooms, property type, furnishing, built year, distance to MRT, and agent description.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -109,7 +109,7 @@
 + Visualized property locations on an interactive map of Singapore using Python's Folium library. 
 <iframe src="images/map.html" width="100%" height="400"></iframe>
 
-+ Utilized a word cloud to visualize word frequencies in property agent comments, thus informing feature extraction. 
++ Utilized a word cloud to visualize word frequencies in property agent descriptions, thus informing feature extraction.
 ![Word cloud](images/wordcloud.png)
 + Explored descriptive statistics, distributions and correlations. 
 ![Correlation heatmap](images/correlation_heatmap.png)
@@ -119,10 +119,10 @@
 
 <!-- DATA PREPROCESSING -->
 ## Data Preprocessing
-+ Data enrichment: Utilized the Google Maps API to fill in missing addresses based on property names.
++ Data enrichment: Leveraged the Google Maps API to fill in missing addresses based on property names.
 + Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
-+ Feature extraction: Extracted property type, furnishing, built year, distance to MRT, high floor, new unit, renovated, view, and penthouse from the property descriptions.
-+ Handling outliers: Compared three ways of handling outliers in rental prices: (a) Removing outliers based on 1.5 interquartile ranges (IQR), (b) removing outliers based on 3 standard deviations (SD), and (c) not removing outliers. Removing outliers based on 1.5 IQR yielded the best performance on the validation data and was used for all subsequent models.
++ Feature extraction: Extracted property features (e.g., high floor, new, renovated) from property agent descriptions.
++ Handling outliers: Compared three methods for dealing with outliers and found that removing outliers based on 1.5 times the interquartile range consistently outperformed both removing outliers based on 3 standard deviations and not removing outliers.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
