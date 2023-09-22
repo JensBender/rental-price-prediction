@@ -1,7 +1,21 @@
 <!-- anchor tag for back-to-top links -->
 <a name="readme-top"></a>
 
+<!-- PROJECT LOGO -->
+<div align="center">
+  <a href="https://github.com/JensBender/rental-price-prediction">
+    <img src="images/logo.png" width=80%>
+  </a>
+  <p>
+    <br />
+    Estimate rental prices powered by machine learning.
+    <br />
+  </p>
+</div> 
 
+---
+
+<!-- TABLE OF CONTENTS -->
 ## Table of Contents
 <ol>
   <li>
