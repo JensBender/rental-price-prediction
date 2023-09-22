@@ -132,7 +132,7 @@
 ## Model Training
 
 ### Baseline Model Performance 
-Implemented five machine learning models with baseline parameter configurations and evaluated model performance based on root mean squared error (RMSE), mean absolute percentage error (MAPE), and R-squared (R²).
+Implemented five machine learning models with baseline parameter configurations and evaluated model performance on the validation data based on root mean squared error (RMSE), mean absolute percentage error (MAPE), and R-squared (R²).
 
 | Model                  | RMSE  | MAPE | R²             |
 |------------------------|-------|------|----------------|
@@ -149,7 +149,7 @@ Implemented five machine learning models with baseline parameter configurations 
   + XGBoost hyperparameter tuning: [See details](#xgboost-hyperparameter-tuning)
 
 ### Model Selection
-+ Selected the model that demonstrated the best performance on the validation data. The chosen model was an XGBoost regression model with the following hyperparameters: 
++ Selected the model that demonstrated the best performance on the validation data. The chosen model was an **XGBoost** regression model with the following hyperparameters: 
   + n_estimators=300
   + max_depth=4
   + subsample=0.8
@@ -159,16 +159,16 @@ Implemented five machine learning models with baseline parameter configurations 
   + gamma=0
 + Hyperparameter tuning improved the XGBoost model compared to its baseline configuration, resulting in the following performance metrics: 
 
-| Data                      | RMSE  | MAPE | R²   |
-|---------------------------|-------|------|------|
-| Training                  | 279   | 0.05 | 0.99 |
-| Validation                | 1040  | 0.14 | 0.90 |
-| Test                      | 995   | 0.13 | 0.90 |
+  | Data                      | RMSE  | MAPE | R²   |
+  |---------------------------|-------|------|------|
+  | Training                  | 279   | 0.05 | 0.99 |
+  | Validation                | 1040  | 0.14 | 0.90 |
+  | Test                      | 995   | 0.13 | 0.90 |
 
-XGBoost Residual Plots for Test Data
++ Residual plots for the test data provide additional insights into the performance of the XGBoost model:
 ![Residual plots](images/residual_plots.png)
 
-XGBoost Feature Importance Plot 
++ The feature importance plot highlights the top ten predictors of rental prices, with property size being the most influential. Distance to the central business district, average rating of nearby restaurants, and distance to the closest school, all obtained through the Google Maps API, follow as critical features, emphasizing the importance of location in the real estate market.  
 ![Feature importance](images/feature_importance.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -214,7 +214,7 @@ This is a list of the Python packages you need.
 ### XGBoost: Hyperparameter Tuning
 | Hyperparameter   | Explanation                                    | Values                   |
 |------------------|------------------------------------------------|--------------------------| 
-| n_estimators     | Number of boosting rounds                      | [100, 200, 300, 400, 500] |
+| n_estimators     | Number of trees                                | [100, 200, 300, 400, 500] |
 | max_depth        | Maximum depth of each tree                     | [3, 4, 5] 
 | subsample        | Fraction of samples used for fitting each tree | [0.8, 0.9, 1.0] |
 | colsample_bytree | Fraction of features used for fitting each tree| [0.8, 0.9, 1.0] |
