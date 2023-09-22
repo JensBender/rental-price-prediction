@@ -40,7 +40,7 @@
   <li>
     <a href="#model-training">Model Training</a>
     <ul>
-      <li><a href="#baseline-model-performance">Baseline Model Performance</a></li>
+      <li><a href="#baseline-models">Baseline Models</a></li>
       <li><a href="#hyperparameter-tuning">Hyperparameter Tuning</a></li>
       <li><a href="#model-selection">Model Selection</a></li>
     </ul>
@@ -65,18 +65,11 @@
 ## About The Project
 
 ### Summary
-+ Motivation: Utilize machine learning to predict rental prices. 
-+ Data collection: Scraped 1680 property listings from an online property portal in Singapore.
-+ Exploratory data analysis: Visualized property locations on an interactive map of Singapore using Python's Folium library. Utilized a word cloud to inform feature extraction from property agent comments.  
-+ Data preprocessing: 
-  + Data enrichment: Filled in missing addresses based on property names using the Google Maps API.
-  + Feature engineering: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
-  + Feature extraction: Extracted property type, furnishing, built year, distance to MRT and other features from the property descriptions.
-  + Handling outliers: Removing rental price outliers based on 1.5 interquartile ranges improved model performance compared with removing outliers based on 3 standard deviations or not removing outliers.
-+ Model training: 
-  + Baseline model performance: XGBoost (RMSE: 1151) and random forest (RMSE: 1110) demonstrated superior performance compared to linear regression (RMSE: 1369), support vector machine (RMSE: 2087), and neural network (RMSE: 1370).
-  + Hyperparameter tuning: Performed a grid search of XGBoost and random forest. 
-  + Model selection: The best performing model was an XGBoost model with RMSE 995, MAPE 0.13 and R-squared 0.9 on the test data.
++ Motivation: Simplify the process of finding rental properties in Singapore's expensive real estate market by using machine learning to estimate rental prices. 
++ Data collection: Scraped 1680 property listings from an online property portal, including information on price, size, address, bedrooms, bathrooms and more.
++ Exploratory data analysis: Visualized property locations on an interactive map, generated a word cloud to extract insights from property agent descriptions, and examined descriptive statistics, distributions, and correlations.  
++ Data preprocessing: Handled missing address data and engineered location-related features using the Google Maps API, extracted property features from agent descriptions and systematically evaluated multiple outlier handling methods. 
++ Model training: Trained five machine learning models with baseline configurations, selected an XGBoost regression model with optimized hyperparameters, and achieved a test dataset performance with an RMSE of 995, a MAPE of 0.13, and an R² of 0.90.
 
 ### Built With
 * [![Python][Python-badge]][Python-url]
@@ -131,7 +124,7 @@
 <!-- MODEL TRAINING -->
 ## Model Training
 
-### Baseline Model Performance 
+### Baseline Models 
 Implemented five machine learning models with baseline parameter configurations and evaluated model performance on the validation data based on root mean squared error (RMSE), mean absolute percentage error (MAPE), and R-squared (R²).
 
 | Model                  | RMSE  | MAPE | R²             |
