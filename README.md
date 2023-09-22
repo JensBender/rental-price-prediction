@@ -88,7 +88,7 @@
 
 <!-- DATA COLLECTION -->
 ## Data Collection
-+ Scraped 1680 property listings from an online property portal in Singapore using cloudscraper and Beautiful Soup.
++ Scraped 1680 property listings in Singapore from an online property portal using cloudscraper and Beautiful Soup.
 + Collected information on property name, price, address, size, bedrooms, bathrooms, property type, furnishing, built year, distance to MRT, and agent description.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
