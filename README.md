@@ -41,7 +41,8 @@
     <a href="#model-training">Model Training</a>
     <ul>
       <li><a href="#baseline-model-performance">Baseline Model Performance</a></li>
-      <li><a href="#hyperparameter-tuning-and-model-selection">Hyperparameter Tuning and Model Selection</a></li>
+      <li><a href="#hyperparameter-tuning">Hyperparameter Tuning</a></li>
+      <li><a href="#model-selection">Model Selection</a></li>
     </ul>
   </li>
   <li>
@@ -131,8 +132,7 @@
 ## Model Training
 
 ### Baseline Model Performance 
-+ Implemented linear regression, support vector machine regression, neural network regression, random forest regression, and XGBoost regression models with baseline parameter configurations. 
-+ Evaluated model performance based on root mean squared error (RMSE), mean absolute percentage error (MAPE), and R-squared (R²).
+Implemented five machine learning models with baseline parameter configurations and evaluated model performance based on root mean squared error (RMSE), mean absolute percentage error (MAPE), and R-squared (R²).
 
 | Model                  | RMSE  | MAPE | R²             |
 |------------------------|-------|------|----------------|
@@ -142,15 +142,23 @@
 | Random Forest          | 1110  | 0.15 | 0.89           |
 | XGBoost                | 1151  | 0.15 | 0.88           |
 
-### Hyperparameter Tuning and Model Selection
+### Hyperparameter Tuning
 + Identified random forest and XGBoost as the top two performers for hyperparameter tuning.
 + Employed grid search with 5-fold cross-validation to find the best hyperparameter combinations.
-  + Random forest: [See details](#random-forest-hyperparameter-tuning)
-  + XGBoost: [See details](#xgboost-hyperparameter-tuning)
-+ Selected the model with the best performance, which was an XGBoost model with the following hyperparameters: n_estimators=300, max_depth=4, subsample=0.8, colsample_bytree=0.8, learning_rate=0.1, and a min_child_weight=3, gamma=0.
-+ Hyperparameter tuning improved the XGBoost model compared to the baseline configuration: RMSE: 1040 vs. 1151, MAPE 0.14 vs. 0.15, and R-squared 0.90 vs. 0.88. 
+  + Random forest hyperparameter tuning: [See details](#random-forest-hyperparameter-tuning)
+  + XGBoost hyperparameter tuning: [See details](#xgboost-hyperparameter-tuning)
 
-XGBoost Model Performance
+### Model Selection
++ Selected the model that demonstrated the best performance on the validation data. The chosen model was an XGBoost regression model with the following hyperparameters: 
+  + n_estimators=300
+  + max_depth=4
+  + subsample=0.8
+  + colsample_bytree=0.8
+  + learning_rate=0.1
+  + min_child_weight=3
+  + gamma=0
++ Hyperparameter tuning improved the XGBoost model compared to its baseline configuration, resulting in the following performance metrics: 
+
 | Data                      | RMSE  | MAPE | R²   |
 |---------------------------|-------|------|------|
 | Training                  | 279   | 0.05 | 0.99 |
