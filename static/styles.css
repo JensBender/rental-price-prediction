@@ -28,6 +28,17 @@ body {
   border-radius: 10px;
 }
 
+.form-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.form-input {
+    width: 200px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
 .submit-button {
   display: block;
   width: 50%;

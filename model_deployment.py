@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, StringField, SubmitField
 from wtforms.validators import DataRequired
+import xgboost  # required to use the XGBoost model loaded from a pickle file
 import pickle
 from dotenv import load_dotenv
 import os

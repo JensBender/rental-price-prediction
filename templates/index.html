@@ -9,7 +9,16 @@
     <div><h1 class="title">Rental Price Estimation</h1></div>
     <form class="form" action="{{ url_for('home') }}" method="POST">
       {{ form.csrf_token }}
-      <div>{{ form.submit(class="submit-button") }}</div>
+      <div><label class="form-label">{{ form.size.label }}</label> {{ form.size(class="form-input", size=8) }}</div>
+      <div><label class="form-label">{{ form.bedrooms.label }}</label> {{ form.bedrooms(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.bathrooms.label }}</label> {{ form.bathrooms(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.address.label }}</label> {{ form.address(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.property_type.label }}</label> {{ form.property_type(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.furnishing.label }}</label> {{ form.furnishing(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.year.label }}</label> {{ form.year(class="form-input", size=8) }}</div>
+      <div><label class="form-label">{{ form.meters_to_mrt.label }}</label> {{ form.meters_to_mrt(class="form-input", size=8) }}</div>
+      <div><label class="form-label">{{ form.agent_description.label }}</label> {{ form.agent_description(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.submit(class="submit-button") }}</div>
     </form>
     {% if prediction %}
       <div class="result">  
