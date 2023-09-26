@@ -155,10 +155,7 @@ Implemented five machine learning models with baseline parameter configurations 
   | Validation                | 1040  | 0.14 | 0.90 |
   | Test                      | 995   | 0.13 | 0.90 |
 
-+ Residual plots for the test data provide additional insights into the performance of the XGBoost model:
-![Residual plots](images/residual_plots.png)
-
-+ The feature importance plot highlights the top ten predictors of rental prices, with property size being the most influential. Distance to the central business district, average rating of nearby restaurants, and distance to the closest school, all obtained through the Google Maps API, follow as critical features, emphasizing the importance of location in the real estate market.  
++ The **feature importance plot** highlights the top ten predictors of rental prices, with property size being the most influential. Distance to the central business district, average rating of nearby restaurants, and distance to the closest school, all obtained through the Google Maps API, follow as critical features, emphasizing the importance of location in the real estate market.  
 ![Feature importance](images/feature_importance.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
