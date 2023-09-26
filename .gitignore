@@ -1,6 +1,7 @@
 .env
 /data
 /venv_development
+/venv_deployment
 /.idea
 /.ipynb_checkpoints
 /images/feature_importance.png
