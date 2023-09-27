@@ -215,8 +215,10 @@ class RentalPriceEstimationForm(FlaskForm):
     property_type = SelectField("Property type:",
                                 choices=[("Condominium", "Condominium"), ("Apartment", "Apartment"),
                                          ("HDB Flat", "HDB Flat"), ("Semi-Detached House", "Semi-Detached House"),
-                                         ("Good Class Bungalow", "Good Class Bungalow"), ("Corner Terrace", "Corner Terrace"),
-                                         ("Detached House", "Detached House"), ("Executive Condominium", "Executive Condominium"),
+                                         ("Good Class Bungalow", "Good Class Bungalow"),
+                                         ("Corner Terrace", "Corner Terrace"),
+                                         ("Detached House", "Detached House"),
+                                         ("Executive Condominium", "Executive Condominium"),
                                          ("Terraced House", "Terraced House"), ("Bungalow House", "Bungalow House"),
                                          ("Cluster House", "Cluster House")],
                                 validators=[DataRequired()])
@@ -254,14 +256,20 @@ def home():
         meters_to_cbd = get_meters_to_cbd(latitude, longitude)  # Cost: 0.005$
         school_latitude, school_longitude = get_school_location(latitude, longitude)  # Cost: 0.032$
         meters_to_school = get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
-        restaurants_rating = get_restaurants_rating(latitude, longitude)   # Cost: 0.032$
+        restaurants_rating = get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
 
         # Extract features from agent description
-        high_floor = None
-        new = None
-        renovated = None
-        view = None
-        penthouse = None
+        high_floor = (lambda string: True if "high floor" in string.lower() else False)(agent_description)
+        new = (lambda string: True if "brand new" in string.lower() or "new unit" in string.lower() else False)(agent_description)
+        renovated = (lambda string: True if "renovated" in string.lower() or "renovation" in string.lower() else False)(agent_description)
+        view = (lambda string: True if "sea view" in string.lower() or "seaview" in string.lower() or
+                                       "panoramic view" in string.lower() or "unblocked view" in string.lower() or
+                                       "unblock view" in string.lower() or "stunning view" in string.lower() or
+                                       "park view" in string.lower() or "breathtaking view" in string.lower() or
+                                       "river view" in string.lower() or "pool view" in string.lower() or
+                                       "spectacular view" in string.lower() or "city view" in string.lower() or
+                                       "greenery view" in string.lower() or "gorgeous view" in string.lower() else False)(agent_description)
+        penthouse = (lambda string: True if "penthouse" in string.lower() else False)(agent_description)
 
         # Handle missing values
 
