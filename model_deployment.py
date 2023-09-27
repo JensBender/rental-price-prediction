@@ -272,6 +272,20 @@ def home():
         penthouse = (lambda string: True if "penthouse" in string.lower() else False)(agent_description)
 
         # Handle missing values
+        # Bathrooms
+        if bathrooms is None:
+            # Assume 1 bathroom for a room or studio
+            if bedrooms == "Room" or bedrooms == "Studio":
+                bathrooms = 1
+            elif bedrooms == "7+":
+                bathrooms = 7
+            else:
+                bathrooms = int(bedrooms)
+        # Latitude and longitude
+        # Meters to school
+        # Meters to MRT
+        # Furnishing
+        # Built year
 
         # Convert input data to a list
         input_data = [size, bedrooms, bathrooms, latitude, longitude, meters_to_cbd, meters_to_school,
