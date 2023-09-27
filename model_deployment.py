@@ -4,21 +4,203 @@ from wtforms import IntegerField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 import xgboost  # required to use the XGBoost model loaded from a pickle file
 import pickle
+import requests
+import numpy as np
 from dotenv import load_dotenv
 import os
 
 # Load environment variables from .env file
 load_dotenv()
 
+# Get Google Maps API key from .env
+google_maps_api_key = os.getenv("google_maps_api_key")
+
 # Create the Flask web application
 app = Flask(__name__)
 
-# Set Flask secret key (stored in .env) for security purposes (e.g. protecting against CSRF attacks)
+# Set Flask secret key (from .env) for security purposes (e.g. protecting against CSRF attacks)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 # Load XGBoost model from pickle file
 with open("models/xgboost.pkl", "rb") as file:
     model = pickle.load(file)
+
+
+# Create function to get latitude and longitude from an address
+def get_latitude_longitude(address):
+    # Base URL for the Google Maps Geocoding API
+    base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+
+    # Parameters for the Geocoding API request
+    params = {
+        "address": f"{address}, Singapore",
+        "key": google_maps_api_key
+    }
+
+    # Send Geocoding API request and store the response
+    response = requests.get(base_url, params=params)
+    data = response.json()
+
+    # Check if request was successful
+    if data["status"] == "OK":
+        # Extract latitude and longitude from the response
+        location = data["results"][0]["geometry"]["location"]
+        latitude = location["lat"]
+        longitude = location["lng"]
+    else:
+        # Assign missing values and print error message if the request failed
+        latitude = np.nan
+        longitude = np.nan
+        print(f"Geocoding request failed for {address}")
+
+    # Return latitude and longitude
+    return latitude, longitude
+
+
+# Create function to get meters to central business district from property latitude and longitude
+def get_meters_to_cbd(property_latitude, property_longitude):
+    # Return a missing value if latitude or longitude is missing
+    if np.isnan(property_latitude) or np.isnan(property_longitude):
+        print(f"Property latitude or longitude missing. Assigning missing value for meters to CBD.")
+        return np.nan
+
+    # Latitude and longitude of central business district (i.e. Raffles Place)
+    cbd_latitude = 1.284184
+    cbd_longitude = 103.85151
+
+    # Base URL for the Google Maps Distance Matrix API
+    base_url = "https://maps.googleapis.com/maps/api/distancematrix/json"
+
+    # Parameters for the Distance Matrix API request
+    params = {
+        "origins": f"{property_latitude},{property_longitude}",
+        "destinations": f"{cbd_latitude},{cbd_longitude}",
+        "key": google_maps_api_key
+    }
+
+    # Send the Distance Matrix API request and store the response
+    response = requests.get(base_url, params=params)
+    data = response.json()
+
+    # Process the response to get the distance
+    if "rows" in data and data["rows"]:
+        meters_to_cbd = data["rows"][0]["elements"][0]["distance"]["value"]
+        print(f"Distance between property and CBD: {meters_to_cbd} meters")
+    else:
+        print("No distance information available.")
+        return np.nan
+    return meters_to_cbd
+
+
+# Create function to get latitude and longitude of the closest school from property latitude and longitude
+def get_school_location(property_latitude, property_longitude):
+    # Return missing value if latitude or longitude is missing
+    if np.isnan(property_latitude) or np.isnan(property_longitude):
+        print(f"Property latitude or longitude missing. Assigning missing values for school latitude and longitude.")
+        return np.nan, np.nan
+
+    # Base URL for the Google Maps Places Nearby Search API
+    base_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+
+    # Parameters for the Nearby Search API request
+    params = {
+        "location": f"{property_latitude},{property_longitude}",
+        "radius": 1000,  # Search radius in meters
+        "type": "school",
+        "key": google_maps_api_key
+    }
+
+    # Send the Nearby Search API request and store the response
+    response = requests.get(base_url, params=params)
+    data = response.json()
+
+    # Extract latitude and longitude of the closest school from the response
+    if "results" in data and data["results"]:
+        closest_school = data["results"][0]
+        school_name = closest_school["name"]
+        school_location = closest_school["geometry"]["location"]
+        school_latitude = school_location["lat"]
+        school_longitude = school_location["lng"]
+        print(f"Closest school: {school_name}")
+        print(f"Latitude: {school_latitude}, Longitude: {school_longitude}")
+    else:
+        school_latitude = np.nan
+        school_longitude = np.nan
+        print("No schools found nearby.")
+    return school_latitude, school_longitude
+
+
+# Create function to get meters to the closest school
+def get_meters_to_school(property_latitude, property_longitude, school_latitude, school_longitude):
+    # Return missing value if property latitude or longitude is missing
+    if np.isnan(property_latitude) or np.isnan(property_longitude):
+        print(f"Property latitude or longitude missing. Assigning missing value for meters to school.")
+        return np.nan
+
+    # Return missing value if the school location is missing
+    if np.isnan(school_latitude) or np.isnan(school_longitude):
+        print(f"School latitude or longitude missing. Assigning missing value for meters to school.")
+        return np.nan
+
+    # Base URL for the Google Maps Distance Matrix API
+    base_url = "https://maps.googleapis.com/maps/api/distancematrix/json"
+
+    # Parameters for the Distance Matrix API request
+    params = {
+        "origins": f"{property_latitude},{property_longitude}",
+        "destinations": f"{school_latitude},{school_longitude}",
+        "key": google_maps_api_key
+    }
+
+    # Send the Distance Matrix API request and store the response
+    response = requests.get(base_url, params=params)
+    data = response.json()
+
+    # Process the response to get the distance
+    if "rows" in data and data["rows"]:
+        meters_to_school = data["rows"][0]["elements"][0]["distance"]["value"]
+        print(f"Distance between property and closest school: {meters_to_school} meters")
+    else:
+        print("No distance information available. Assigning missing value for meters to school.")
+        return np.nan
+    return meters_to_school
+
+
+# Create function to get the average Google Maps rating of nearby restaurants
+def get_restaurants_rating(property_latitude, property_longitude):
+    # Return missing value if latitude or longitude is missing
+    if np.isnan(property_latitude) or np.isnan(property_longitude):
+        print(f"Property latitude or longitude missing. Assigning missing value for restaurants rating.")
+        return np.nan
+
+    # Base URL for the Google Maps Places Nearby Search API
+    base_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+
+    # Parameters for the Nearby Search API request
+    params = {
+        "location": f"{property_latitude},{property_longitude}",
+        "radius": 1000,  # Search radius in meters
+        "type": "restaurant",
+        "key": google_maps_api_key
+    }
+
+    # Send the Nearby Search API request and store the response
+    response = requests.get(base_url, params=params)
+    data = response.json()
+
+    # Process the response to get the average restaurant rating
+    if "results" in data and data["results"]:
+        # Extract restaurant ratings as a list, assigning np.nan for missing ratings
+        rating_list = [restaurant.get("rating", np.nan) for restaurant in data.get("results")]
+        # Calculate average rating, ignoring np.nan values
+        average_rating = np.nanmean(rating_list)
+        print(f"Number of restaurants: {len(rating_list)}")
+        print(f"Number of ratings: {len([rating for rating in rating_list if not np.isnan(rating)])}")
+        print(f"Average rating: {average_rating:.2f}")
+    else:
+        print("No restaurants found nearby. Assigning missing value for restaurants rating.")
+        return np.nan
+    return average_rating
 
 
 # Create a class for rental price estimation forms (that inherits from the Flask WTForm class)
@@ -54,7 +236,7 @@ class RentalPriceEstimationForm(FlaskForm):
 def home():
     # Create a rental price estimation form
     form = RentalPriceEstimationForm()
-    # If the user submits valid information in the form
+    # If the user submits valid input
     if form.validate_on_submit():
         # Get the input data from the form
         size = form.size.data
@@ -67,12 +249,12 @@ def home():
         meters_to_mrt = form.meters_to_mrt.data
         agent_description = form.agent_description.data
 
-        # Engineer location-based features
-        latitude = None  # get from address using Google Maps API
-        longitude = None  # get from address using Google Maps API
-        meters_to_cbd = None  # get from latitude and longitude using Google Maps API
-        meters_to_school = None  # get from latitude and longitude using Google Maps API
-        restaurants_rating = None   # get from latitude and longitude using Google Maps API
+        # Engineer location-based features via Google Maps API (Cost: 0.079$ per submitted input)
+        latitude, longitude = get_latitude_longitude(address)  # Cost: 0.005$
+        meters_to_cbd = get_meters_to_cbd(latitude, longitude)  # Cost: 0.005$
+        school_latitude, school_longitude = get_school_location(latitude, longitude)  # Cost: 0.032$
+        meters_to_school = get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
+        restaurants_rating = get_restaurants_rating(latitude, longitude)   # Cost: 0.032$
 
         # Extract features from agent description
         high_floor = None
