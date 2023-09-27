@@ -18,8 +18,8 @@ body {
 .title {
   text-align: center;
   font-size: 40px;
-  margin-bottom: 20px;
-  color: white;
+  margin-bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .form {
@@ -29,14 +29,24 @@ body {
 }
 
 .form-label {
+    float: left;
+    width: 150px;
     font-weight: bold;
     margin-right: 10px;
 }
 
 .form-input {
-    width: 200px;
+    width: 180px;
     padding: 5px;
     margin-bottom: 10px;
+}
+
+.int-input {
+    width: 100px;
+}
+
+.str-input {
+    width: 225px;
 }
 
 .submit-button {
@@ -59,4 +69,16 @@ body {
   background-color: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;  
+}
+
+footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
 }

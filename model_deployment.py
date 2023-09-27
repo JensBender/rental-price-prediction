@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SelectField, StringField, SubmitField
+from wtforms import IntegerField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
 import xgboost  # required to use the XGBoost model loaded from a pickle file
 import pickle
@@ -29,7 +29,7 @@ class RentalPriceEstimationForm(FlaskForm):
                                     ("4", "4"), ("5", "5"), ("6", "6"), ("7+", "7+")],
                            validators=[DataRequired()])
     bathrooms = IntegerField("Bathrooms:", validators=[DataRequired()])
-    address = StringField("Address:", validators=[DataRequired()])
+    address = TextAreaField("Address:", validators=[DataRequired()])
     property_type = SelectField("Property type:",
                                 choices=[("Condominium", "Condominium"), ("Apartment", "Apartment"),
                                          ("HDB Flat", "HDB Flat"), ("Semi-Detached House", "Semi-Detached House"),
@@ -45,7 +45,7 @@ class RentalPriceEstimationForm(FlaskForm):
                              validators=[DataRequired()])
     year = IntegerField("Built year:", validators=[DataRequired()])
     meters_to_mrt = IntegerField("Meters to MRT:", validators=[DataRequired()])
-    agent_description = StringField("Agent description:", validators=[DataRequired()])
+    agent_description = TextAreaField("Agent description:", validators=[DataRequired()])
     submit = SubmitField("Estimate")
 
 
