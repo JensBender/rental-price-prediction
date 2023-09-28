@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
+import sklearn  # required to use the column transformer for data preprocessing loaded from a pickle file
 import xgboost  # required to use the XGBoost model loaded from a pickle file
 import pickle
 import requests
@@ -294,6 +295,10 @@ def home():
                       restaurants_rating, property_type, furnishing, year, meters_to_mrt, high_floor,
                       new, renovated, view, penthouse]
         print(input_data)
+
+        # Apply the column transformer to encode the categorical features and scale the numerical features
+        input_data_transformed = column_transformer.transform(input_data)
+        print(input_data_transformed)
 
         # Estimate rental price based on the model
         prediction = 2500.5  # model.predict(input_data)[0][0]
