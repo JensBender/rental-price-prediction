@@ -269,17 +269,9 @@ def home():
         penthouse = "penthouse" in agent_description.lower()
 
         # Handle missing values
-        # Bathrooms
+        # Bathrooms: Assume 1 bathroom for a room or studio, 7 bathrooms for 7+ bedrooms, else same number as bedrooms
         if bathrooms is None:
-            # Assume 1 bathroom for a room or studio
-            if bedrooms == "Room" or bedrooms == "Studio":
-                bathrooms = 1
-            # Assume 7 bathrooms for 7 or more bedrooms
-            elif bedrooms == "7+":
-                bathrooms = 7
-            # Else assume the same number as bedrooms
-            else:
-                bathrooms = int(bedrooms)
+            bathrooms = {"Room": 1, "Studio": 1, "7+": 7}.get(bedrooms, int(bedrooms))
         # Latitude and longitude
         # Meters to school: Impute the maximum (i.e. 9689 meters, see data_preprocessing.ipynb)
         meters_to_school = 9689 if np.isnan(meters_to_school) else meters_to_school
