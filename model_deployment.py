@@ -223,11 +223,11 @@ class RentalPriceEstimationForm(FlaskForm):
                                          ("Cluster House", "Cluster House")],
                                 validators=[DataRequired()])
     furnishing = SelectField("Furnishing:",
-                             choices=[("Fully Furnished", "Fully Furnished"),
+                             choices=[("", ""),
+                                      ("Fully Furnished", "Fully Furnished"),
                                       ("Partially Furnished", "Partially Furnished"),
-                                      ("Unfurnished", "Unfurnished")],
-                             validators=[DataRequired()])
-    year = IntegerField("Built year:", validators=[DataRequired()])
+                                      ("Unfurnished", "Unfurnished")])
+    year = IntegerField("Built year:")
     meters_to_mrt = IntegerField("Meters to MRT:", validators=[DataRequired()])
     agent_description = TextAreaField("Agent description:", validators=[DataRequired()])
     submit = SubmitField("Estimate")
@@ -258,7 +258,7 @@ def home():
         meters_to_school = get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
         restaurants_rating = get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
 
-        # Extract features from agent description
+        # Extract features from the agent description
         high_floor = (lambda string: True if "high floor" in string.lower() else False)(agent_description)
         new = any(keyword in agent_description.lower() for keyword in ["brand new", "new unit"])
         renovated = any(keyword in agent_description.lower() for keyword in ["renovated", "renovation"])
@@ -274,15 +274,21 @@ def home():
             # Assume 1 bathroom for a room or studio
             if bedrooms == "Room" or bedrooms == "Studio":
                 bathrooms = 1
+            # Assume 7 bathrooms for 7 or more bedrooms
             elif bedrooms == "7+":
                 bathrooms = 7
+            # Else assume the same number as bedrooms
             else:
                 bathrooms = int(bedrooms)
         # Latitude and longitude
-        # Meters to school
-        # Meters to MRT
-        # Furnishing
-        # Built year
+        # Meters to school: Impute the maximum (i.e. 9689 meters, see data_preprocessing.ipynb)
+        meters_to_school = 9689 if np.isnan(meters_to_school) else meters_to_school
+        # Meters to MRT: Impute the median (i.e. 450 meters, see data_preprocessing.ipynb)
+        meters_to_mrt = 450 if np.isnan(meters_to_mrt) else meters_to_mrt
+        # Furnishing: Impute the mode (i.e. "Partially Furnished", see data_preprocessing.ipynb)
+        furnishing = "Partially Furnished" if furnishing == "" else furnishing
+        # Built year: Impute the median (i.e. 2013, see data_preprocessing.ipynb)
+        year = 2013 if year is None else year
 
         # Convert input data to a list
         input_data = [size, bedrooms, bathrooms, latitude, longitude, meters_to_cbd, meters_to_school,
