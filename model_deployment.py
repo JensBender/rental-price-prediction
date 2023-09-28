@@ -15,17 +15,8 @@ load_dotenv()
 # Get Google Maps API key from .env
 google_maps_api_key = os.getenv("google_maps_api_key")
 
-# Create the Flask web application
-app = Flask(__name__)
 
-# Set Flask secret key (from .env) for security purposes (e.g. protecting against CSRF attacks)
-app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-
-# Load XGBoost model from pickle file
-with open("models/xgboost.pkl", "rb") as file:
-    model = pickle.load(file)
-
-
+# --------------------------- HELPER FUNCTIONS FOR PREPROCESSING -------------------------------------------------------
 # Create function to get latitude and longitude from an address
 def get_latitude_longitude(address):
     # Base URL for the Google Maps Geocoding API
@@ -201,6 +192,22 @@ def get_restaurants_rating(property_latitude, property_longitude):
         print("No restaurants found nearby. Assigning missing value for restaurants rating.")
         return np.nan
     return average_rating
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+# Load column transformer to encode categorical columns and scale numerical columns from pickle file
+with open("models/column_transformer.pkl", "rb") as file:
+    column_transformer = pickle.load(file)
+
+# Load XGBoost model from pickle file
+with open("models/xgboost.pkl", "rb") as file:
+    model = pickle.load(file)
+
+# Create the Flask web application
+app = Flask(__name__)
+
+# Set Flask secret key from .env file for security purposes (e.g. protecting against CSRF attacks)
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 
 # Create a class for rental price estimation forms (that inherits from the Flask WTForm class)
