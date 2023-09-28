@@ -7,6 +7,7 @@ import xgboost  # required to use the XGBoost model loaded from a pickle file
 import pickle
 import requests
 import numpy as np
+import pandas as pd
 from dotenv import load_dotenv
 import os
 
@@ -290,10 +291,10 @@ def home():
         # Built year: Impute the median (i.e. 2013, see data_preprocessing.ipynb)
         year = 2013 if year is None else year
 
-        # Convert input data to a list
-        input_data = [size, bedrooms, bathrooms, latitude, longitude, meters_to_cbd, meters_to_school,
-                      restaurants_rating, property_type, furnishing, year, meters_to_mrt, high_floor,
-                      new, renovated, view, penthouse]
+        # Convert input data to a NumPy 2D array
+        input_data = pd.DataFrame([size, bedrooms, bathrooms, latitude, longitude, meters_to_cbd, meters_to_school,
+                                   restaurants_rating, property_type, furnishing, year, meters_to_mrt, high_floor,
+                                   new, renovated, view, penthouse])
         print(input_data)
 
         # Apply the column transformer to encode the categorical features and scale the numerical features
