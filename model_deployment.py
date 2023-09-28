@@ -260,15 +260,12 @@ def home():
 
         # Extract features from agent description
         high_floor = (lambda string: True if "high floor" in string.lower() else False)(agent_description)
-        new = (lambda string: True if "brand new" in string.lower() or "new unit" in string.lower() else False)(agent_description)
-        renovated = (lambda string: True if "renovated" in string.lower() or "renovation" in string.lower() else False)(agent_description)
-        view = (lambda string: True if "sea view" in string.lower() or "seaview" in string.lower() or
-                                       "panoramic view" in string.lower() or "unblocked view" in string.lower() or
-                                       "unblock view" in string.lower() or "stunning view" in string.lower() or
-                                       "park view" in string.lower() or "breathtaking view" in string.lower() or
-                                       "river view" in string.lower() or "pool view" in string.lower() or
-                                       "spectacular view" in string.lower() or "city view" in string.lower() or
-                                       "greenery view" in string.lower() or "gorgeous view" in string.lower() else False)(agent_description)
+        new = any(keyword in agent_description.lower() for keyword in ["brand new", "new unit"])
+        renovated = any(keyword in agent_description.lower() for keyword in ["renovated", "renovation"])
+        view = any(keyword in agent_description.lower() for keyword in
+                   ["sea view", "seaview", "panoramic view", "unblocked view", "unblock view", "stunning view",
+                    "park view", "breathtaking view", "river view", "pool view", "spectacular view", "city view",
+                    "greenery view", "gorgeous view"])
         penthouse = (lambda string: True if "penthouse" in string.lower() else False)(agent_description)
 
         # Handle missing values
