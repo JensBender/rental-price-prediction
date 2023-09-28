@@ -210,7 +210,7 @@ class RentalPriceEstimationForm(FlaskForm):
                            choices=[("Room", "Room"), ("Studio", "Studio"), ("1", "1"), ("2", "2"), ("3", "3"),
                                     ("4", "4"), ("5", "5"), ("6", "6"), ("7+", "7+")],
                            validators=[DataRequired()])
-    bathrooms = IntegerField("Bathrooms:", validators=[DataRequired()])
+    bathrooms = IntegerField("Bathrooms:")
     address = TextAreaField("Address:", validators=[DataRequired()])
     property_type = SelectField("Property type:",
                                 choices=[("Condominium", "Condominium"), ("Apartment", "Apartment"),
@@ -228,12 +228,12 @@ class RentalPriceEstimationForm(FlaskForm):
                                       ("Partially Furnished", "Partially Furnished"),
                                       ("Unfurnished", "Unfurnished")])
     year = IntegerField("Built year:")
-    meters_to_mrt = IntegerField("Meters to MRT:", validators=[DataRequired()])
-    agent_description = TextAreaField("Agent description:", validators=[DataRequired()])
+    meters_to_mrt = IntegerField("Meters to MRT:")
+    agent_description = TextAreaField("Agent description:")
     submit = SubmitField("Estimate")
 
 
-# Home route
+# Create the home route
 @app.route("/", methods=["GET", "POST"])
 def home():
     # Create a rental price estimation form
@@ -252,11 +252,11 @@ def home():
         agent_description = form.agent_description.data
 
         # Engineer location-based features via Google Maps API (Cost: 0.079$ per submitted input)
-        latitude, longitude = get_latitude_longitude(address)  # Cost: 0.005$
-        meters_to_cbd = get_meters_to_cbd(latitude, longitude)  # Cost: 0.005$
-        school_latitude, school_longitude = get_school_location(latitude, longitude)  # Cost: 0.032$
-        meters_to_school = get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
-        restaurants_rating = get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
+        latitude, longitude = 1.35, 103.8  # get_latitude_longitude(address)  # Cost: 0.005$
+        meters_to_cbd = 10750  # get_meters_to_cbd(latitude, longitude)  # Cost: 0.005$
+        school_latitude, school_longitude = 1.35, 103.8  # get_school_location(latitude, longitude)  # Cost: 0.032$
+        meters_to_school = 450  # get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
+        restaurants_rating = 4.0  # get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
 
         # Extract features from the agent description
         high_floor = "high floor" in agent_description.lower()
@@ -276,7 +276,7 @@ def home():
         # Meters to school: Impute the maximum (i.e. 9689 meters, see data_preprocessing.ipynb)
         meters_to_school = 9689 if np.isnan(meters_to_school) else meters_to_school
         # Meters to MRT: Impute the median (i.e. 450 meters, see data_preprocessing.ipynb)
-        meters_to_mrt = 450 if np.isnan(meters_to_mrt) else meters_to_mrt
+        meters_to_mrt = 450 if meters_to_mrt is None else meters_to_mrt
         # Furnishing: Impute the mode (i.e. "Partially Furnished", see data_preprocessing.ipynb)
         furnishing = "Partially Furnished" if furnishing == "" else furnishing
         # Built year: Impute the median (i.e. 2013, see data_preprocessing.ipynb)
@@ -286,12 +286,15 @@ def home():
         input_data = [size, bedrooms, bathrooms, latitude, longitude, meters_to_cbd, meters_to_school,
                       restaurants_rating, property_type, furnishing, year, meters_to_mrt, high_floor,
                       new, renovated, view, penthouse]
+        print(input_data)
+
         # Estimate rental price based on the model
-        prediction = model.predict(input_data)[0][0]
+        prediction = 2500.5  # model.predict(input_data)[0][0]
+
         # Render the estimated rental price in the index.html template
-        return render_template("index.html",
-                               form=form,
-                               prediction=prediction)
+        return render_template("index.html", form=form, prediction=prediction)
+
+    # Render the index.html template
     return render_template("index.html", form=form)
 
 
