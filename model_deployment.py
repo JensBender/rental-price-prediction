@@ -259,14 +259,14 @@ def home():
         restaurants_rating = get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
 
         # Extract features from the agent description
-        high_floor = (lambda string: True if "high floor" in string.lower() else False)(agent_description)
+        high_floor = "high floor" in agent_description.lower()
         new = any(keyword in agent_description.lower() for keyword in ["brand new", "new unit"])
         renovated = any(keyword in agent_description.lower() for keyword in ["renovated", "renovation"])
         view = any(keyword in agent_description.lower() for keyword in
                    ["sea view", "seaview", "panoramic view", "unblocked view", "unblock view", "stunning view",
                     "park view", "breathtaking view", "river view", "pool view", "spectacular view", "city view",
                     "greenery view", "gorgeous view"])
-        penthouse = (lambda string: True if "penthouse" in string.lower() else False)(agent_description)
+        penthouse = "penthouse" in agent_description.lower()
 
         # Handle missing values
         # Bathrooms
