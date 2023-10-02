@@ -2,8 +2,8 @@ from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired
-import sklearn  # required to use the column transformer for data preprocessing loaded from a pickle file
-import xgboost  # required to use the XGBoost model loaded from a pickle file
+import sklearn  # required to use the column transformer for data preprocessing
+import xgboost  # required to use the XGBoost model
 import pickle
 import requests
 import numpy as np
@@ -197,13 +197,15 @@ def get_restaurants_rating(property_latitude, property_longitude):
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-# Load column transformer to encode categorical columns and scale numerical columns from pickle file
+# Load column transformer  from pickle file to encode categorical columns and scale numerical columns
 with open("models/column_transformer.pkl", "rb") as file:
     column_transformer = pickle.load(file)
 
 # Load XGBoost model from pickle file
 with open("models/xgboost.pkl", "rb") as file:
     model = pickle.load(file)
+# Enable categorical support for the loaded model
+model.enable_categorical = True
 
 # Create the Flask web application
 app = Flask(__name__)
@@ -292,17 +294,20 @@ def home():
         year = 2013 if year is None else year
 
         # Convert input data to a NumPy 2D array
-        input_data = pd.DataFrame([size, bedrooms, bathrooms, latitude, longitude, meters_to_cbd, meters_to_school,
-                                   restaurants_rating, property_type, furnishing, year, meters_to_mrt, high_floor,
-                                   new, renovated, view, penthouse])
-        print(input_data)
+        input_data = pd.DataFrame([[size, bedrooms, bathrooms, latitude, longitude, meters_to_cbd, meters_to_school,
+                                    restaurants_rating, property_type, furnishing, year, meters_to_mrt, high_floor,
+                                    new, renovated, view, penthouse]],
+                                  columns=["size", "bedrooms", "bathrooms", "latitude", "longitude", "meters_to_cbd",
+                                           "meters_to_school", "restaurants_rating", "property_type", "furnishing",
+                                           "year", "meters_to_mrt", "high_floor", "new", "renovated", "view",
+                                           "penthouse"])
 
         # Apply the column transformer to encode the categorical features and scale the numerical features
         input_data_transformed = column_transformer.transform(input_data)
-        print(input_data_transformed)
 
         # Estimate rental price based on the model
-        prediction = 2500.5  # model.predict(input_data)[0][0]
+        prediction = model.predict(input_data_transformed)[0]
+        prediction = round(prediction)
 
         # Render the estimated rental price in the index.html template
         return render_template("index.html", form=form, prediction=prediction)
