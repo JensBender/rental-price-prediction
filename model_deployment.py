@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SelectField, TextAreaField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Optional
 import sklearn  # required to use the column transformer for data preprocessing
 import xgboost  # required to use the XGBoost model
 import pickle
@@ -221,7 +221,7 @@ class RentalPriceEstimationForm(FlaskForm):
                            choices=[("Room", "Room"), ("Studio", "Studio"), ("1", "1"), ("2", "2"), ("3", "3"),
                                     ("4", "4"), ("5", "5"), ("6", "6"), ("7+", "7+")],
                            validators=[DataRequired()])
-    bathrooms = IntegerField("Bathrooms:")
+    bathrooms = IntegerField("Bathrooms:", validators=[Optional()])
     address = TextAreaField("Address:", validators=[DataRequired()])
     property_type = SelectField("Property type:",
                                 choices=[("Condominium", "Condominium"), ("Apartment", "Apartment"),
@@ -238,8 +238,8 @@ class RentalPriceEstimationForm(FlaskForm):
                                       ("Fully Furnished", "Fully Furnished"),
                                       ("Partially Furnished", "Partially Furnished"),
                                       ("Unfurnished", "Unfurnished")])
-    year = IntegerField("Built year:")
-    meters_to_mrt = IntegerField("Meters to MRT:")
+    year = IntegerField("Built year:", validators=[Optional()])
+    meters_to_mrt = IntegerField("Meters to MRT:", validators=[Optional()])
     agent_description = TextAreaField("Agent description:")
     submit = SubmitField("Estimate")
 
@@ -266,7 +266,7 @@ def home():
         latitude, longitude = 1.35, 103.8  # get_latitude_longitude(address)  # Cost: 0.005$
         meters_to_cbd = 10750  # get_meters_to_cbd(latitude, longitude)  # Cost: 0.005$
         school_latitude, school_longitude = 1.35, 103.8  # get_school_location(latitude, longitude)  # Cost: 0.032$
-        meters_to_school = 450  # get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
+        meters_to_school = np.nan  # get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
         restaurants_rating = 4.0  # get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
 
         # Extract features from the agent description
@@ -282,7 +282,11 @@ def home():
         # Handle missing values
         # Bathrooms: Assume 1 bathroom for a room or studio, 7 bathrooms for 7+ bedrooms, else same number as bedrooms
         if bathrooms is None:
-            bathrooms = {"Room": 1, "Studio": 1, "7+": 7}.get(bedrooms, int(bedrooms))
+            bedroom_mapping = {"Room": 1, "Studio": 1, "7+": 7}
+            if bedrooms in bedroom_mapping:
+                bathrooms = bedroom_mapping[bedrooms]
+            else:
+                bathrooms = int(bedrooms)
         # Latitude and longitude
         # Meters to school: Impute the maximum (i.e. 9689 meters, see data_preprocessing.ipynb)
         meters_to_school = 9689 if np.isnan(meters_to_school) else meters_to_school
