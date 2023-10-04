@@ -262,12 +262,12 @@ def home():
         meters_to_mrt = form.meters_to_mrt.data
         agent_description = form.agent_description.data
 
-        # Engineer location-based features via Google Maps API (Cost: 0.079$ per submitted input)
-        latitude, longitude = 1.35, 103.8  # get_latitude_longitude(address)  # Cost: 0.005$
-        meters_to_cbd = 10750  # get_meters_to_cbd(latitude, longitude)  # Cost: 0.005$
-        school_latitude, school_longitude = 1.35, 103.8  # get_school_location(latitude, longitude)  # Cost: 0.032$
-        meters_to_school = np.nan  # get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
-        restaurants_rating = 4.0  # get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
+        # Engineer location-based features via Google Maps API (Cost: 0.079$ per input submitted by the user)
+        latitude, longitude = get_latitude_longitude(address)  # Cost: 0.005$
+        meters_to_cbd = get_meters_to_cbd(latitude, longitude)  # Cost: 0.005$
+        school_latitude, school_longitude = get_school_location(latitude, longitude)  # Cost: 0.032$
+        meters_to_school = get_meters_to_school(latitude, longitude, school_latitude, school_longitude)  # Cost: 0.005$
+        restaurants_rating = get_restaurants_rating(latitude, longitude)  # Cost: 0.032$
 
         # Extract features from the agent description
         high_floor = "high floor" in agent_description.lower()
@@ -287,7 +287,6 @@ def home():
                 bathrooms = bedroom_mapping[bedrooms]
             else:
                 bathrooms = int(bedrooms)
-        # Latitude and longitude
         # Meters to school: Impute the maximum (i.e. 9689 meters, see data_preprocessing.ipynb)
         meters_to_school = 9689 if np.isnan(meters_to_school) else meters_to_school
         # Meters to MRT: Impute the median (i.e. 450 meters, see data_preprocessing.ipynb)
