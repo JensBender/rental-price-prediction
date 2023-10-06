@@ -11,6 +11,9 @@ COPY static/ static/
 COPY templates/ templates/
 COPY deployment_requirements.txt deployment_requirements.txt
 
+# Install all necessary packages specified in requirements.txt
+RUN pip install -r deployment_requirements.txt
+
 # Expose a port for the Flask app to run on
 EXPOSE 8080
 
