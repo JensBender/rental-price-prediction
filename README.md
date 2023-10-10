@@ -171,7 +171,7 @@ Implemented five machine learning models with baseline parameter configurations 
 
 <!-- MODEL DEPLOYMENT -->
 ## Model Deployment
-Integrated the XGBoost model into a web application, harnessing the power of Flask, HTML, and CSS. This user-friendly app allows users to input property listing details and receive the estimated rental price per month. Containerized the application using Docker and Docker Hub, culminating in a successful deployment on render.com.
+Integrated the XGBoost model into a web application, leveraging the Flask framework, HTML, and CSS. Users can input property listing details and instantly receive an estimate of the monthly rental price. Containerized the application using Docker and Docker Hub, culminating in a successful deployment on the render.com platform.
 
 <img src="images/deployment_web_app.gif" alt="Model deployment web app" width="50%">
 
