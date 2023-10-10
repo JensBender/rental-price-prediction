@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rental Price Estimation</title>
+  <link rel="stylesheet" type="text/css" href="static/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div><h1 class="title">Rental Price Estimation</h1></div>
+    <form class="form" action="{{ url_for('home') }}" method="POST">
+      {{ form.csrf_token }}
+      <div><label class="form-label">{{ form.property_type.label }}</label> {{ form.property_type(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.furnishing.label }}</label> {{ form.furnishing(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.bedrooms.label }}</label> {{ form.bedrooms(class="form-input") }}</div>
+      <div><label class="form-label">{{ form.bathrooms.label }}</label> {{ form.bathrooms(class="form-input int-input") }}</div>
+      <div><label class="form-label">{{ form.size.label }}</label> {{ form.size(class="form-input int-input") }}</div>
+      <div><label class="form-label">{{ form.year.label }}</label> {{ form.year(class="form-input int-input") }}</div>
+      <div><label class="form-label">{{ form.meters_to_mrt.label }}</label> {{ form.meters_to_mrt(class="form-input int-input") }}</div>
+      <div><label class="form-label">{{ form.address.label }}</label> {{ form.address(class="form-input str-input", rows=2) }}</div>
+      <div><label class="form-label">{{ form.agent_description.label }}</label> {{ form.agent_description(class="form-input str-input", rows=4) }}</div>
+      <div>{{ form.submit(class="submit-button") }}</div>
+    </form>
+    {% if prediction %}
+      <div class="result">  
+        <p style="font-size: 1.5em;"><b>Result:</b> {{ prediction }} SGD/month</p>
+      </div>
+    {% endif %}
+  </div>
+  <footer>
+    Background image by Jessica Lewis from <a href="https://www.pexels.com/photo/brown-wooden-welcome-wall-decor-1652402/">Pexels</a>
+  </footer>
+</body>
+</html>
