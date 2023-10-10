@@ -80,6 +80,7 @@
 * [![scikit-learn][scikit-learn-badge]][scikit-learn-url]
 * [![Flask][Flask-badge]][Flask-url]
 * [![Docker][Docker-badge]][Docker-url] 
+* [![Jupyter Notebook][JupyterNotebook-badge]][JupyterNotebook-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -243,3 +244,5 @@ This is a list of the Python packages you need.
 [Flask-url]: https://flask.palletsprojects.com/en/3.0.x/
 [Docker-badge]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
+[JupyterNotebook-badge]: https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white
+[JupyterNotebook-url]: https://jupyter.org/
