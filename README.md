@@ -190,20 +190,30 @@ This is a list of the Python packages you need.
   + lxml
   + Pandas
 + Data preprocessing
-  + Numpy
+  + NumPy
   + Pandas
   + Matplotlib
   + Seaborn
   + Requests
   + Dotenv
 + Model training
-  + Numpy
+  + NumPy
   + Pandas
   + Matplotlib
   + Scikit-learn
   + XGBoost
   + Pickle
-
++ Model deployment  
+  + Flask
+  + WTForms
+  + Requests
+  + Dotenv
+  + NumPy
+  + Pandas
+  + Scikit-learn
+  + XGBoost
+  + Pickle
+ 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
