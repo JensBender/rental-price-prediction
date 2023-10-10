@@ -45,6 +45,9 @@
     </ul>
   </li>
   <li>
+    <a href="#model-deployment">Model Deployment</a>
+  </li>
+  <li>
     <a href="#getting-started">Getting Started</a>
     <ul>
       <li><a href="#prerequisites">Prerequisites</a></li>
@@ -67,6 +70,7 @@
 + **Exploratory data analysis**: Visualized property locations on an interactive map, generated a word cloud to extract insights from property agent descriptions, and examined descriptive statistics, distributions, and correlations.  
 + **Data preprocessing**: Handled missing address data and engineered location-related features using the Google Maps API, extracted property features from agent descriptions and systematically evaluated multiple outlier handling methods. 
 + **Model training**: Trained five machine learning models with baseline configurations, selected an XGBoost regression model with optimized hyperparameters, and achieved a test dataset performance with an RMSE of 995, a MAPE of 0.13, and an R² of 0.90.
++ **Model deployment**: Created a web application for serving the XGBoost model using the Flask framework. Containerized this application using Docker and successfully deployed the Docker container on the render.com platform.
 
 ### Built With
 * [![Python][Python-badge]][Python-url]
@@ -74,6 +78,8 @@
 * [![Pandas][Pandas-badge]][Pandas-url]
 * [![Matplotlib][Matplotlib-badge]][Matplotlib-url]
 * [![scikit-learn][scikit-learn-badge]][scikit-learn-url]
+* [![Flask][Flask-badge]][Flask-url]
+* [![Docker][Docker-badge]][Docker-url] 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -161,6 +167,16 @@ Implemented five machine learning models with baseline parameter configurations 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+<!-- MODEL DEPLOYMENT -->
+## Model Deployment
+I integrated the XGBoost model in a web application using the Flask framework, HTML, and CSS. The users can input relevant information from the property listing and receive an estimate of the monthly rental price. I containerized this application with Docker and Docker Hub and deployed it on render.com.
+
+<img src="images/deployment_web_app.gif" alt="Model deployment web app" width="50%">
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -223,3 +239,7 @@ This is a list of the Python packages you need.
 [Matplotlib-url]: https://matplotlib.org/
 [scikit-learn-badge]: https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white
 [scikit-learn-url]: https://scikit-learn.org/stable/
+[Flask-badge]: https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white
+[Flask-url]: https://flask.palletsprojects.com/en/3.0.x/
+[Docker-badge]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
