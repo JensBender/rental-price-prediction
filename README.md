@@ -81,6 +81,7 @@
 * [![Flask][Flask-badge]][Flask-url]
 * [![Docker][Docker-badge]][Docker-url] 
 * [![Jupyter Notebook][JupyterNotebook-badge]][JupyterNotebook-url]
+* [![PyCharm][PyCharm-badge]][PyCharm-url] 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -246,3 +247,5 @@ This is a list of the Python packages you need.
 [Docker-url]: https://www.docker.com/
 [JupyterNotebook-badge]: https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white
 [JupyterNotebook-url]: https://jupyter.org/
+[PyCharm-badge]: https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green
+[PyCharm-url]: https://www.jetbrains.com/pycharm/
