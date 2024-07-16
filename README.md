@@ -66,11 +66,11 @@
 <!-- SUMMARY -->
 ## Summary
 + **Motivation**: Simplify the process of finding rental properties in Singapore's expensive real estate market by using machine learning to estimate rental prices. 
-+ **Data collection**: Scraped 1680 property listings from an online property portal, including information on price, size, address, bedrooms, bathrooms and more.
-+ **Exploratory data analysis**: Visualized property locations on an interactive map, generated a word cloud to extract insights from property agent descriptions, and examined descriptive statistics, distributions, and correlations.  
-+ **Data preprocessing**: Handled missing address data and engineered location-related features using the Google Maps API, extracted property features from agent descriptions and systematically evaluated multiple outlier handling methods. 
-+ **Model training**: Trained five machine learning models with baseline configurations, selected an XGBoost regression model with optimized hyperparameters, and achieved a test dataset performance with an RMSE of 995, a MAPE of 0.13, and an R² of 0.90.
-+ **Model deployment**: Created a web application for serving the XGBoost model using the Flask framework. Containerized this application using Docker and successfully deployed the Docker container on render.com.
++ **Data Collection**: Scraped 1680 property listings from an online property portal, including information on price, size, address, bedrooms, bathrooms and more.
++ **Exploratory Data Analysis**: Visualized property locations on an interactive map, generated a word cloud to extract insights from property agent descriptions, and examined descriptive statistics, distributions, and correlations.  
++ **Data Preprocessing**: Handled missing address data and engineered location-related features using the Google Maps API, extracted property features from agent descriptions and systematically evaluated multiple outlier handling methods. 
++ **Model Training**: Trained five machine learning models with baseline configurations, selected an XGBoost regression model with optimized hyperparameters, and achieved a test dataset performance with an RMSE of 995, a MAPE of 0.13, and an R² of 0.90.
++ **Model Deployment**: Created a web application for serving the XGBoost model using the Flask framework. Containerized this application using Docker and successfully deployed the Docker container on render.com.
 
 ### Built With
 * [![Python][Python-badge]][Python-url]
@@ -89,7 +89,7 @@
 <!-- MOTIVATION -->
 ## Motivation
 + **Problem**: The rental property market in Singapore stands as one of the most expensive in the world. Navigating through this challenging landscape to find a lucrative deal can be a daunting task. Determining whether a property listing represents a fair deal or is excessively priced poses a considerable challenge to prospective renters.
-+ **Project goal**: Simplify rental property search in Singapore, using machine learning to estimate rental prices and empower users to make informed decisions about listed properties being genuine opportunities or overpriced investments.
++ **Project Goal**: Simplify rental property search in Singapore, using machine learning to estimate rental prices and empower users to make informed decisions about listed properties being genuine opportunities or overpriced investments.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,10 +118,10 @@ Explored descriptive statistics, distributions and correlations.
 
 <!-- DATA PREPROCESSING -->
 ## Data Preprocessing
-+ **Data enrichment**: Leveraged the Google Maps API to fill in missing addresses based on property names.
-+ **Feature engineering**: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
-+ **Feature extraction**: Extracted property features (e.g., high floor, new, renovated) from property agent descriptions.
-+ **Handling outliers**: Compared three methods for dealing with outliers and found that removing outliers based on 1.5 times the interquartile range consistently outperformed both removing outliers based on 3 standard deviations and not removing outliers.
++ **Data Enrichment**: Leveraged the Google Maps API to fill in missing addresses based on property names.
++ **Feature Engineering**: Utilized the Google Maps API to obtain (a) latitude and longitude based on the address, (b) distance to the central business district, (c) distance to the closest school, and (d) average rating of nearby restaurants.
++ **Feature Extraction**: Extracted property features (e.g., high floor, new, renovated) from property agent descriptions.
++ **Handling Outliers**: Compared three methods for dealing with outliers and found that removing outliers based on 1.5 times the interquartile range consistently outperformed both removing outliers based on 3 standard deviations and not removing outliers.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -143,8 +143,8 @@ Implemented five machine learning models with baseline parameter configurations 
 ### Hyperparameter Tuning
 + Identified random forest and XGBoost as the top two performers for hyperparameter tuning.
 + Employed grid search with 5-fold cross-validation to find the best hyperparameter combinations.
-  + Random forest hyperparameter tuning: [See details](#random-forest-hyperparameter-tuning)
-  + XGBoost hyperparameter tuning: [See details](#xgboost-hyperparameter-tuning)
+  + Random Forest Hyperparameter Tuning: [See details](#random-forest-hyperparameter-tuning)
+  + XGBoost Hyperparameter Tuning: [See details](#xgboost-hyperparameter-tuning)
 
 ### Model Selection
 + Selected the model that demonstrated the best performance on the validation data. The chosen model was an **XGBoost** regression model with the following hyperparameters: 
@@ -184,26 +184,26 @@ Integrated the XGBoost model into a web application, leveraging the Flask framew
 
 ### Prerequisites
 This is a list of the Python packages you need.  
-+ Data collection
++ Data Collection
   + Cloudscraper
   + Beautiful Soup
   + lxml
   + Pandas
-+ Data preprocessing
++ Data Preprocessing
   + NumPy
   + Pandas
   + Matplotlib
   + Seaborn
   + Requests
   + Dotenv
-+ Model training
++ Model Training
   + NumPy
   + Pandas
   + Matplotlib
   + Scikit-learn
   + XGBoost
   + Pickle
-+ Model deployment  
++ Model Deployment  
   + Flask
   + WTForms
   + Requests
