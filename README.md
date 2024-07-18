@@ -255,7 +255,7 @@ This is a list of the Python packages you need.
 [Flask-url]: https://flask.palletsprojects.com/en/3.0.x/
 [Docker-badge]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
-[JupyterNotebook-badge]: https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white
+[JupyterNotebook-badge]: https://img.shields.io/badge/Jupyter-F37626.svg?style=for-the-badge&logo=Jupyter&logoColor=white
 [JupyterNotebook-url]: https://jupyter.org/
 [PyCharm-badge]: https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green
 [PyCharm-url]: https://www.jetbrains.com/pycharm/
