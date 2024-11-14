@@ -8,7 +8,7 @@
   </a>
   <p>
     <br />
-    I collected property listings from an online portal, engineered location-based features using Google Maps API, and trained various machine learning models. I deployed the XGBoost regression model with optimized hyperparameters (RMSE=995, MAPE=0.13, R²=0.90) as a web application.
+    Scraped property listings from an online portal, engineered location-based features using Google Maps API, and trained various machine learning models. Deployed the XGBoost regression model with optimized hyperparameters (RMSE=995, MAPE=0.13, R²=0.90) as a web application.
     <br />
   </p>
 </div> 
