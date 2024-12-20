@@ -1,8 +1,8 @@
 <!-- anchor tag for back-to-top links -->
 <a name="readme-top"></a>
 
-<!-- PROJECT LOGO -->
-<img src="images/logo.png" width=100%>
+<!-- HEADER IMAGE  -->
+<img src="images/header_image.png">
 
 <!-- SHORT SUMMARY  -->
 Scraped property listings from an online portal, engineered location-based features using Google Maps API, and trained various machine learning models. Deployed the XGBoost regression model with optimized hyperparameters (RMSE=995, MAPE=0.13, R²=0.90) as a web application.
