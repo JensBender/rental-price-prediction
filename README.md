@@ -2,16 +2,10 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT LOGO -->
-<div align="center">
-  <a href="https://github.com/JensBender/rental-price-prediction">
-    <img src="images/logo.png" width=80%>
-  </a>
-  <p>
-    <br />
-    Scraped property listings from an online portal, engineered location-based features using Google Maps API, and trained various machine learning models. Deployed the XGBoost regression model with optimized hyperparameters (RMSE=995, MAPE=0.13, R²=0.90) as a web application.
-    <br />
-  </p>
-</div> 
+<img src="images/logo.png" width=100%>
+
+<!-- SHORT SUMMARY  -->
+Scraped property listings from an online portal, engineered location-based features using Google Maps API, and trained various machine learning models. Deployed the XGBoost regression model with optimized hyperparameters (RMSE=995, MAPE=0.13, R²=0.90) as a web application.
 
 ---
 
