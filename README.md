@@ -5,7 +5,7 @@
 <img src="images/header_image.png">
 
 <!-- SHORT SUMMARY  -->
-Scraped property listings from an online portal, engineered location-based features using Google Maps API, and trained various machine learning models. Deployed the XGBoost regression model with optimized hyperparameters (RMSE=995, MAPE=0.13, R²=0.90) as a web application.
+Built a rental price prediction model by scraping property listings and engineering location-based features via the Google Maps API. Evaluated multiple ML models and deployed the top-performing XGBoost model (RMSE=995, R²=0.90) as a web application.
 
 ---
 
